@@ -226,7 +226,7 @@ int main()
         "160",
     };
 
-    string input_template = "simu_1E7/xangle_<xangle>/output_xy_distributions.root";
+    string input_template = "simu/1E7/xangle_<xangle>/output_xy_distributions.root";
 
     const map<string, string> quantities = {
         {"de_x_mean", "p2_de_x_vs_x_y"},

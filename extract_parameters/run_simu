@@ -6,11 +6,11 @@ xangles=(
     160
 )
 
-n_events="1E2"
+n_events="1E7"
 
 for xangle in ${xangles[*]}
 do
-    dir="simu_$n_events/xangle_$xangle"
+    dir="simu/$n_events/xangle_$xangle"
     mkdir -p "$dir"
 
     echo "* $dir"

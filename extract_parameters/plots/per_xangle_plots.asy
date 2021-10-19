@@ -1,7 +1,7 @@
 import root;
 import pad_layout;
 
-string topDir = "../simu_1E7/";
+string topDir = "../simu/1E5/";
 
 string arm = "1";
 

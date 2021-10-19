@@ -1,7 +1,7 @@
 import root;
 import pad_layout;
 
-string f = "../simu_1E2/xangle_130/output_optics.root";
+string f = "../simu/1E5/xangle_130/output_optics.root";
 
 string rps[];
 rps.push("23");
