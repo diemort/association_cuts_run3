@@ -1,8 +1,10 @@
 import root;
 import pad_layout;
 
-string f_mc = "simu/test2_1E4/mc_2018_eff_mc.root";
-string f_mc_ref = "simu/off_pre3_1E4/mc_2018_eff_mc.root";
+string topDir = "../";
+
+string f_mc = topDir + "simu/test2_1E4/mc_2018_eff_mc.root";
+string f_mc_ref = topDir + "simu/off_pre3_1E4/mc_2018_eff_mc.root";
 
 string f_data = "mc_2018_eff_data.root";
 

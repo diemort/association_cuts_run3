@@ -1,15 +1,14 @@
 import root;
 import pad_layout;
 
+string topDir = "../";
+
 string files[], f_labels[];
 pen f_pens[];
-//files.push("simu/official/1E4/mc_eff_mc.root"); f_labels.push("official"); f_pens.push(black);
-//files.push("simu/update/old/1E4/mc_eff_mc.root"); f_labels.push("update/old"); f_pens.push(red+dashed);
-
-files.push("simu/update/model1/1E4/mc_eff_mc.root"); f_labels.push("model1"); f_pens.push(blue);
-files.push("simu/update/model2/1E4/mc_eff_mc.root"); f_labels.push("model2"); f_pens.push(red);
-files.push("simu/update/model2-5si/1E4/mc_eff_mc.root"); f_labels.push("model2-5si"); f_pens.push(green);
-files.push("simu/update/model2-3si/1E4/mc_eff_mc.root"); f_labels.push("model2-3si"); f_pens.push(magenta);
+files.push("simu/model1/1E4/mc_eff_mc.root"); f_labels.push("model1"); f_pens.push(blue);
+files.push("simu/model2/1E4/mc_eff_mc.root"); f_labels.push("model2"); f_pens.push(red);
+files.push("simu/model2-5si/1E4/mc_eff_mc.root"); f_labels.push("model2-5si"); f_pens.push(green);
+files.push("simu/model2-3si/1E4/mc_eff_mc.root"); f_labels.push("model2-3si"); f_pens.push(magenta);
 
 string arms[];
 //arms.push("0");
@@ -38,7 +37,7 @@ for (int ai : arms.keys)
 		NewPad("$\xi$", "efficiency");
 
 		for (int fi : files.keys)
-			draw(RootGetObject(files[fi], "arm" + arms[ai] + "/" + n_protons[npi] + "/p_eff_vs_xi"), "eb", f_pens[fi], f_labels[fi]);	
+			draw(RootGetObject(topDir + files[fi], "arm" + arms[ai] + "/" + n_protons[npi] + "/p_eff_vs_xi"), "eb", f_pens[fi], f_labels[fi]);	
 
 		limits((0, 0.3), (0.2, 1.1), Crop);
 	}

@@ -18,14 +18,14 @@ Directory "extract_parameters"
 Directory "efficiency"
 ==============================
 
-* to test the efficiency
+* Contains tools to evaluate the efficiency of the near-far association. The efficiency is evaluated with the standard CMSSW module `CTPPSProtonReconstructionEfficiencyEstimatorData`. The scripts allow to either use the default association cuts settings (model "default") or define customs settings/models (see below)
 
-* in `run_multiple`
-  - line 3: set the statistics: 1E4 runs for a minute, 1E5 runs about 10 minutes but gives smoother results
-  - line 5: list of models to test
-  - execute "./run_multiple" to run it
+* One can adjust settings in `run_multiple`.
+  - Line 3: set the statistics: 1E4 runs for a minute, 1E5 runs about 10 minutes but gives smoother results.
+  - Line 5: list of models to test. 
 
-* `template_cfg.py`
-  - lines 37 to 66: definition of the models
-  - lines 69 to 72: symmetriation of the settings
+* One can adjust the configuration template `template_cfg.py`.
+  - Lines 37 to 66: definition of the models.
+  - Lines 69 to 72: symmetriation of the settings. The current optics estimate is L-R symmetric.
 
+* Execute `./run_multiple` to run the tests. The results can be investigated by opening `simu/<model>/<statistics>/mc_eff_data.root`, in particular by checking the efficiency histograms `arm <arm>/exp prot <multiplicity>/nsi = 5.0/p_eff2_vs_x_N`. Generally, the "eff2" estimate is considered better.

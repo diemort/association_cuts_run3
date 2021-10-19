@@ -3,8 +3,7 @@ import pad_layout;
 
 string topDir = "../";
 
-string f = topDir + "simu/update/default/1E5/mc_eff_data.root";
-//string f = topDir + "simu/update/model4-x4-y2/1E4/mc_eff_data.root";
+string f = topDir + "simu/default/1E4/mc_eff_data.root";
 
 string arm = "0";
 
