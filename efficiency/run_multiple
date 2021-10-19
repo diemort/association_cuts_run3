@@ -1,0 +1,37 @@
+#!/bin/bash
+
+statistics="1E4"
+
+models=(
+	#"old"
+
+	#"default"
+
+	#"model1"
+	#"model2"
+	#"model3"
+	#"model4"
+
+	"model4-x4-y3"
+	"model4-x4-y2"
+)
+
+for model in ${models[*]}
+do
+	dir="simu/update/$model/$statistics"
+	mkdir -p "$dir"
+	rm -f $dir/*{_cfg.py,.root,.log}
+
+	echo "* $dir"
+
+	cat "template_cfg.py" | sed "\
+			s|\$statistics|$statistics|;\
+			s|\$model|$model|;\
+		" > "$dir/cfg.py"
+
+	cd "$dir"
+
+	cmsRun "cfg.py" &> "log" &
+
+	cd - &> /dev/null
+done

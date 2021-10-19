@@ -1,0 +1,29 @@
+#!/bin/bash
+
+xangles=(
+    100
+    130
+    160
+)
+
+n_events="1E2"
+
+for xangle in ${xangles[*]}
+do
+    dir="simu_$n_events/xangle_$xangle"
+    mkdir -p "$dir"
+
+    echo "* $dir"
+
+    cp "direct_simu_reco_cff.py" "$dir/"
+    cat "xy_distributions_cfg_template.py" | sed "\
+            s|\$xangle|$xangle|;\
+            s|\$n_events|$n_events|;\
+        " > "$dir/xy_distributions_cfg.py"
+
+    cd "$dir" || continue
+
+    cmsRun "xy_distributions_cfg.py" &> "log" &
+
+    cd - &> /dev/null
+done

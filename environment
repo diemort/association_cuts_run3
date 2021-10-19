@@ -1,0 +1,34 @@
+#!/bin/bash
+
+cwd=`pwd`
+
+# for tests, to be removed
+#cd "/afs/cern.ch/work/j/jkaspar/work/software/ctpps/debug/Grzegorz/CMSSW_12_0_0_pre3/"
+#cd "/afs/cern.ch/work/j/jkaspar/work/software/ctpps/production/CMSSW_12_0_0_pre6"
+#cd "/afs/cern.ch/work/j/jkaspar/work/software/ctpps/development/track_delta_plots/CMSSW_12_0_0_pre6/"
+#cd "/afs/cern.ch/work/j/jkaspar/work/software/ctpps/debug/Grzegorz/CMSSW_12_0_0_pre6"
+#cd "/afs/cern.ch/work/j/jkaspar/work/software/ctpps/production/CMSSW_12_1_0_pre2" # ref
+#cd "/afs/cern.ch/work/j/jkaspar/work/software/ctpps/development/association_cut_update/CMSSW_12_1_0_pre2" # test
+
+cd "/afs/cern.ch/work/j/jkaspar/work/software/ctpps/development/new_eff_plots/CMSSW_12_1_0_pre4"
+
+source environment
+
+export CMSSW_SEARCH_PATH="$CMSSW_SEARCH_PATH:$cwd"
+
+compName=$(uname -n)
+export compName="${compName%%.*}"
+
+function CalculatePrompt()
+{
+	cwd=`pwd`
+	cwd=${cwd/\/afs\/cern.ch\/work\/j\/jkaspar/...}
+	cwd=${cwd/\/analyses\/ctpps/}
+}
+
+PROMPT_COMMAND="CalculatePrompt"
+export PS1="\[\033[00;34m\]${compName} \[\033[00;33m\]${CMSSW_VERSION}\[\033[00;32m\] \$cwd> \[\033[00m\]"
+
+cd "$cwd"
+
+echo "CMSSW_BASE=$CMSSW_BASE"
