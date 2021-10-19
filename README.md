@@ -1,14 +1,17 @@
-Everything to be run in environmen of your CMSSW branch.
+Everything to be run in environment of your CMSSW branch. As an example, see the `environment` file.
+
+Tested in CMSSW_12_1_0_pre4.
+
 
 
 Directory "extract_parameters"
 ==============================
 
-* to run MC and to extract cut strings from it
+* Contains tools to run MC (direct simulation) and to extract new association cut strings from the simulation.
 
-* Run ./run_simu to run a new simulation. On line 9, you can change the number of simulated events. 1E7 is a decent statistics, but it takes ~2h on LXPLUS.
+* Execute `./run_simu` to run a new simulation. On line 9, you can change the number of simulated events. 1E7 is a decent statistics, but it takes ~2h on LXPLUS.
 
-* "analyze.cc" is the code to fit the hit distributions. Run "make && ./analyze" to execute it - it takes few seconds. The results can be investigated by opening "analyze.root" in the ROOT browser.
+* `analyze.cc` is the code to fit the hit distributions. Run `make && ./analyze` to execute it - it takes few seconds. The results can be investigated by opening `analyze.root` in the ROOT browser.
 
 
 
