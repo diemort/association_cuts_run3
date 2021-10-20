@@ -3,9 +3,9 @@ import pad_layout;
 
 string topDir = "../";
 
-string f = topDir + "simu/default/1E4/mc_eff_data.root";
+string f = topDir + "simu/default/4E5/mc_eff_data.root";
 
-string arm = "0";
+string arm = "1";
 
 string n_protons[];
 n_protons.push("1");
@@ -23,8 +23,8 @@ AttachLegend();
 
 NewPadLabel("efficiency");
 NewPadLabel("non-unique N-F match");
-NewPadLabel("non-complete N-F match");
-NewPadLabel("complete N-F match");
+//NewPadLabel("non-complete N-F match");
+//NewPadLabel("complete N-F match");
 
 for (int npi : n_protons.keys)
 {
@@ -49,6 +49,7 @@ for (int npi : n_protons.keys)
 	draw(RootGetObject(f, "arm " + arm + "/exp prot " + n_protons[npi] + "/nsi = 3.0/p_fr_match_non_unique"), "eb", red);	
 	limits((0, 0.0), (x_N_max, 0.5), Crop);	
 
+	/*
 	NewPad("$x_{\rm N}\ung{mm}$", "fraction");
 	draw(RootGetObject(f, "arm " + arm + "/exp prot " + n_protons[npi] + "/nsi = 3.0/p_fr_signature_0"), "eb", blue, "sig !x, !y");
 	draw(RootGetObject(f, "arm " + arm + "/exp prot " + n_protons[npi] + "/nsi = 3.0/p_fr_signature_1"), "eb", red, "sig x, !y");
@@ -60,6 +61,7 @@ for (int npi : n_protons.keys)
 	draw(RootGetObject(f, "arm " + arm + "/exp prot " + n_protons[npi] + "/nsi = 3.0/p_fr_signature_12"), "eb", magenta, "sig x, y");
 	limits((0, 0.0), (x_N_max, 1.05), Crop);	
 	AttachLegend();
+	*/
 }
 
 GShipout(vSkip=0mm);

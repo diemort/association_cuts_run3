@@ -3,13 +3,7 @@ import pad_layout;
 
 string topDir = "../";
 
-string files[], f_labels[];
-pen f_pens[];
-//files.push("simu/model1/1E5/mc_eff_data.root"); f_labels.push("model1"); f_pens.push(blue);
-//files.push("simu/model2/1E5/mc_eff_data.root"); f_labels.push("model2"); f_pens.push(red);
-//files.push("simu/model3/1E5/mc_eff_data.root"); f_labels.push("model3"); f_pens.push(heavygreen);
-//files.push("simu/model4/1E5/mc_eff_data.root"); f_labels.push("model4"); f_pens.push(heavygreen);
-files.push("simu/default/4E5/mc_eff_data.root"); f_labels.push("default"); f_pens.push(red);
+string f = "simu/default/4E5/mc_eff_data.root";
 
 string arms[];
 //arms.push("0");
@@ -20,6 +14,12 @@ n_protons.push("1");
 n_protons.push("2");
 n_protons.push("3");
 n_protons.push("4");
+
+string n_sigmas[];
+pen p_nsis[];
+n_sigmas.push("3.0"); p_nsis.push(red);
+n_sigmas.push("5.0"); p_nsis.push(blue);
+n_sigmas.push("7.0"); p_nsis.push(heavygreen);
 
 xTicksDef = LeftTicks(5., 1.);
 yTicksDef = RightTicks(0.05, 0.01);
@@ -40,8 +40,11 @@ for (int ai : arms.keys)
 	{
 		NewPad("$x_{\rm N}\ung{mm}$", "efficiency");
 
-		for (int fi : files.keys)
-			draw(RootGetObject(topDir + files[fi], "arm " + arms[ai] + "/exp prot " + n_protons[npi] + "/nsi = 5.0/p_eff2_vs_x_N"), "eb", f_pens[fi], f_labels[fi]);	
+		for (int nsi : n_sigmas.keys)
+		{
+			draw(RootGetObject(topDir + f, "arm " + arms[ai] + "/exp prot " + n_protons[npi] + "/nsi = " + n_sigmas[nsi] + "/p_eff2_vs_x_N"),
+				"eb", p_nsis[nsi], "$n_\si = " + n_sigmas[nsi] + "$");
+		}
 
 		limits((0, 0.7), (20, 1.05), Crop);
 
