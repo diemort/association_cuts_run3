@@ -1,0 +1,57 @@
+#!/bin/bash
+
+# INPUT PARAMETERS:
+
+# list of crossing angles:
+xangles=( 100 130 160 )
+# Number of events to generate:
+n_events="1E6"
+year="2022"
+Ebeam="6800"
+cmssw="CMSSW_12_1_0"
+
+# EXECUTE:
+
+# loop over crossing angles:
+for xangle in ${xangles[*]}
+do
+    # create and print path to dir:
+    dir="simu-$year-$Ebeam/$n_events/xangle_$xangle"
+    mkdir -p "$dir"
+    echo "* $dir"
+    # prep files to run:
+    cat "direct_simu_reco_cff.py" | sed "\
+            s|\$year|$year|;\
+            s|\$Ebeam|$Ebeam|;\
+        " > "$dir/direct_simu_reco_cff.py"
+    cat "xy_distributions_cfg_template.py" | sed "\
+            s|\$xangle|$xangle|;\
+            s|\$n_events|$n_events|;\
+        " > "$dir/xy_distributions_cfg.py"
+    # execute generation:
+    # local:
+    if [ -z "$1" ] || [ "$1" = "local" ]; then
+        # enter dir OR continue to next crossing angle:
+        cd "$dir" || continue
+        cmsRun "xy_distributions_cfg.py" &> "log" &
+    # condor:
+    elif [ "$1" = "condor" ]; then
+        cat "condor_template.sub" | sed "\
+                s|\$dir|$dir|;\
+                s|\$label|$dir|;\
+                s|\$cmssw|$cmssw|;\
+            " > "$dir/condor.sub"
+        cp "condor_template.sh" "$dir/condor.sh"
+#        cat "condor_template.sh" | sed "\
+#                s|\$cmssw|$cmssw|;\
+#            " > "$dir/condor.sh"
+        # enter dir OR continue to next crossing angle:
+        cd "$dir" || continue
+        if [ ! -d logs ]; then
+            mkdir logs
+        fi
+        condor_submit "condor.sub"
+    fi
+    # return to work dir:
+    cd - &> /dev/null
+done

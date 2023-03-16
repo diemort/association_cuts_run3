@@ -1,0 +1,11 @@
+executable            = condor.sh
+requirements          = (OpSysAndVer =?= "CentOS7")
+error                 = $dir/logs/$(ClusterId).$(ProcId).err
+output                = $dir/logs/$(ClusterId).$(ProcId).out
++JobBatchName         = "$label"
++JobFlavour           = "workday"
+should_transfer_files = YES
+transfer_input_files  = xy_distributions_cfg.py
+CMSSW                 = $cmssw
+arguments             = $(CMSSW) xy_distributions_cfg.py
+queue
