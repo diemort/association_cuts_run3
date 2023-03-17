@@ -56,9 +56,7 @@ process.p = cms.Path(
   process.generator
   * process.beamDivergenceVtxGenerator
   * process.ctppsDirectProtonSimulation
-
   * process.reco_local
-  
   * process.ctppsLHCInfoPlotter
   * process.ctppsOpticsPlotter
   * process.ctppsTrackDistributionPlotter
