@@ -5,10 +5,18 @@
 # list of crossing angles:
 xangles=( 100 130 160 )
 # Number of events to generate:
-n_events="1E6"
-year="2022"
-Ebeam="6800"
+n_events="1E8"
+year="2021"
+Ebeam="7000"
 cmssw="CMSSW_12_1_0"
+
+# CHECK INPUT:
+if [[ $1 != condor ]]
+then
+    echo "Wrong input arguments. Use no argument for \
+local run or 'condor' to submit HTCondor jobs."
+    exit 1
+fi
 
 # EXECUTE:
 
@@ -30,21 +38,17 @@ do
         " > "$dir/xy_distributions_cfg.py"
     # execute generation:
     # local:
-    if [ -z "$1" ] || [ "$1" = "local" ]; then
+    if [ -z "$1" ]; then
         # enter dir OR continue to next crossing angle:
         cd "$dir" || continue
         cmsRun "xy_distributions_cfg.py" &> "log" &
     # condor:
     elif [ "$1" = "condor" ]; then
         cat "condor_template.sub" | sed "\
-                s|\$dir|$dir|;\
                 s|\$label|$dir|;\
                 s|\$cmssw|$cmssw|;\
             " > "$dir/condor.sub"
         cp "condor_template.sh" "$dir/condor.sh"
-#        cat "condor_template.sh" | sed "\
-#                s|\$cmssw|$cmssw|;\
-#            " > "$dir/condor.sh"
         # enter dir OR continue to next crossing angle:
         cd "$dir" || continue
         if [ ! -d logs ]; then
