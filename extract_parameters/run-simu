@@ -13,7 +13,7 @@ cmssw="CMSSW_12_1_0"
 # CHECK INPUT:
 if [[ $1 != condor ]]
 then
-    echo "Wrong input arguments. Use no argument for \
+    echo "Wrong input arguments. Use argument 'local' for \
 local run or 'condor' to submit HTCondor jobs."
     exit 1
 fi
@@ -38,7 +38,7 @@ do
         " > "$dir/xy_distributions_cfg.py"
     # execute generation:
     # local:
-    if [ -z "$1" ]; then
+    if [ "$1" = "local" ]; then
         # enter dir OR continue to next crossing angle:
         cd "$dir" || continue
         cmsRun "xy_distributions_cfg.py" &> "log" &
