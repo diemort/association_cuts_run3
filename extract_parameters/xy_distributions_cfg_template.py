@@ -21,6 +21,22 @@ process.maxEvents = cms.untracked.PSet(
   input = cms.untracked.int32(int($n_events))
 )
 
+process.load("CondCore.CondDB.CondDB_cfi")
+process.CondDB.connect = 'frontier://FrontierProd/CMS_CONDITIONS'
+process.PoolDBESSource = cms.ESSource("PoolDBESSource",
+    process.CondDB,
+    toGet = cms.VPSet(cms.PSet(
+        record = cms.string('CTPPSPixelAnalysisMaskRcd'),
+        tag = cms.string("CTPPSPixelAnalysisMask_Run3_v1_hlt")),
+        cms.PSet(
+        record = cms.string('LHCInfoPerLSRcd'),
+        tag = cms.string("LHCInfoPerLS_endFill_Run3_mc_v1")),
+        cms.PSet(
+        record = cms.string('LHCInfoPerFillRcd'),
+        tag = cms.string("LHCInfoPerFill_endFill_Run3_mc_v1")),
+        )
+)
+
 # xangle and beta* plotter
 process.ctppsLHCInfoPlotter = cms.EDAnalyzer("CTPPSLHCInfoPlotter",
   lhcInfoLabel = cms.string(""),
