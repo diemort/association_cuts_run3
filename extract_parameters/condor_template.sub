@@ -5,7 +5,7 @@ output                = logs/$(ClusterId).$(ProcId).out
 +JobBatchName         = "$label"
 +JobFlavour           = "workday"
 should_transfer_files = YES
-transfer_input_files  = xy_distributions_cfg.py,direct_simu_reco_cff.py
+transfer_input_files  = xy_distributions_cfg.py,direct_simu_reco_cff.py,tarball.tar.gz
 CMSSW                 = $cmssw
 arguments             = $(CMSSW) xy_distributions_cfg.py
 queue
